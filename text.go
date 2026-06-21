@@ -133,6 +133,24 @@ type line struct {
 	spans []TextSpan
 }
 
+// LineT is a copy of line struct
+type LineT struct {
+	Y     float64
+	Spans []TextSpan
+}
+
+// Return line info from text
+func (t *Text) GetLines() []LineT {
+	result := make([]LineT, len(t.lines))
+	for i, l := range t.lines {
+		result[i] = LineT{
+			Y:     l.y,
+			Spans: l.spans,
+		}
+	}
+	return result
+}
+
 // Heights returns the maximum top, ascent, descent, and bottom heights of the line, where top and bottom are equal to ascent and descent respectively with added line spacing.
 func (l line) Heights(mode WritingMode) (float64, float64, float64, float64) {
 	top, ascent, descent, bottom := 0.0, 0.0, 0.0, 0.0
